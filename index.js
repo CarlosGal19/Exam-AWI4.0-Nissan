@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 
-import connectDB from './backend/config/db';
+import connectDB from './backend/config/db.js';
 
 import TestCar from './backend/controllers/carController.js'
 import TestCoach from './backend/controllers/coachController.js'
