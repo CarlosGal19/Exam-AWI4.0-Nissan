@@ -1,12 +1,69 @@
 import Scholar from '../models/scholar.model.js'
 
-export default function test(){
-    console.log('Scholar controller is running');
+const getScholars = async (req, res) => {
+    try {
+        const scholars = await Scholar.find();
+        return res.status(200).send({scholars})
+    } catch (error) {
+        return res.status(500).send({message: error.mesage})
+    }
 }
 
-Scholar.create({
-    name: 'Alvaro',
-    last_name: 'Esparza',
-    email: 'alvaro@utma.edu.mx',
-    salary: 7500
-});
+const postScholar = async (req, res) => {
+    try {
+        const { name, last_name, email, salary } = req.body;
+        if([name, last_name, email, salary].includes(undefined)){
+            return res.status(400).send({message: 'All field are required'});
+        }
+        const newScholar = Scholar.create({
+            name,
+            last_name,
+            email,
+            salary
+        });
+        return res.status(200).send({message: 'Scholar created', newScholar});
+    } catch (error) {
+        return res.status(500).send({message: error.mesage})
+    }
+}
+
+const updateScholar = async (req, res) => {
+    try {
+        const id = req.body.id
+        if(!id) return res.status(400).send({message: 'Id is required'});
+        const scholar = await Scholar.findById(id);
+        if(!scholar) return res.status(400).send({message: 'scholar not found'});
+        const { name, last_name, email, salary } = req.body
+        if([name, last_name, email, salary].includes(undefined)){
+            return res.status(400).send({message: 'All field are required'});
+        }
+        scholar.name = name;
+        scholar.last_name = last_name;
+        scholar.email = email;
+        scholar.salary = salary
+        await scholar.save();
+        return res.status(200).send({message: 'Scholar updated'});
+    } catch (error) {
+        return res.status(500).send({message: error.mesage})
+    }
+}
+
+const deleteScholar = async(req, res) => {
+    try {
+        const id = req.params.id;
+        if(!id) return res.status(400).send({message: 'Id is required'});
+        const scholar = await Scholar.findById(id);
+        if(!scholar) return res.status(400).send({message: 'Scholar nos found'});
+        await scholar.delete();
+        return res.status(200).send({message: 'Scholar deleted succesfully'});
+    } catch (error) {
+        return res.status(500).send({message: error.mesage})
+    }
+}
+
+export {
+    getScholars,
+    postScholar,
+    updateScholar,
+    deleteScholar
+}
