@@ -42,7 +42,7 @@ const postPayroll = async (req, res) => {
 
 const updatePayroll = async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.params.id
         if(!id) return res.status(400).send({message: 'Id is required'});
         const payroll = await Payroll.findById(id);
         if(!payroll) return res.status(400).send({message: 'Payroll not found'});

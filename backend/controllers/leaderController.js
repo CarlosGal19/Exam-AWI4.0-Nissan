@@ -40,7 +40,7 @@ const postLeader = async (req, res) => {
 
 const updateLeader = async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.params.id
         if(!id) return res.status(400).send({message: 'Id is required'});
         const leader = await Leader.findById(id);
         if(!leader) return res.status(400).send({message: 'Leader not found'});

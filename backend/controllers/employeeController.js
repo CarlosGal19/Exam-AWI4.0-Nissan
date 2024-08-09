@@ -43,7 +43,7 @@ const postEmployee = async (req, res) => {
 
 const updateEmployee = async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.params.id
         if(!id) return res.status(400).send({message: 'Id is required'});
         const employee = await employee.findById(id);
         if(!employee) return res.status(400).send({message: 'Employee not found'});

@@ -44,7 +44,7 @@ const postCoach = async (req, res) => {
 
 const updateCoach = async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.params.id
         if(!id) return res.status(400).send({message: 'Id is required'});
         const coach = await Coach.findById(id);
         if(!coach) return res.status(400).send({message: 'Coach not found'});

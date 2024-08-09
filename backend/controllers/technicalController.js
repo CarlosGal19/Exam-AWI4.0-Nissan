@@ -42,7 +42,7 @@ const postTechnical = async (req, res) => {
 
 const updateTechnical = async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.params.id
         if(!id) return res.status(400).send({message: 'Id is required'});
         const technical = await Technical.findById(id);
         if(!technical) return res.status(400).send({message: 'Technical not found'});

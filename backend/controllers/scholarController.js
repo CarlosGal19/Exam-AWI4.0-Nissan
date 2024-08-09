@@ -43,7 +43,7 @@ const postScholar = async (req, res) => {
 
 const updateScholar = async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.params.id
         if(!id) return res.status(400).send({message: 'Id is required'});
         const scholar = await Scholar.findById(id);
         if(!scholar) return res.status(400).send({message: 'scholar not found'});

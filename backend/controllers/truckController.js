@@ -43,7 +43,7 @@ const postTruck = async (req, res) => {
 
 const updateTruck = async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.params.id
         if(!id) return res.status(400).send({message: 'Id is required'});
         const truck = await Truck.findById(id);
         if(!truck) return res.status(400).send({message: 'Truck nos found'});
