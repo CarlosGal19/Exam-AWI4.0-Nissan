@@ -1,11 +1,14 @@
 import express from "express";
 
-import { getScholars, postScholar, updateScholar, deleteScholar } from '../controllers/scholarController.js';
+import { getScholars, postScholar, updateScholar, deleteScholar, getScholar } from '../controllers/scholarController.js';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
     getScholars(req, res);
+})
+router.get('/:id', (req, res) => {
+    getScholar(req, res);
 })
 
 router.post('/', (req, res) => {

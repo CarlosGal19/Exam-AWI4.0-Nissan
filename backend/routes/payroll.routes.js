@@ -1,11 +1,15 @@
 import express from "express";
 
-import { getPayrolls, postPayroll, updatePayroll, deletePayroll } from "../controllers/payrollController.js";
+import { getPayrolls, postPayroll, updatePayroll, deletePayroll, getPayroll } from "../controllers/payrollController.js";
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
     getPayrolls(req, res);
+})
+
+router.get('/:id', (req, res) => {
+    getPayroll(req, res);
 })
 
 router.post('/', (req, res) => {

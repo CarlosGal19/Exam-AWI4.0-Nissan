@@ -1,11 +1,15 @@
 import express from "express";
 
-import { getTrucks, postTruck, updateTruck, deleteTruck } from '../controllers/truckController.js';
+import { getTrucks, postTruck, updateTruck, deleteTruck, getTruck } from '../controllers/truckController.js';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
     getTrucks(req, res);
+})
+
+router.get('/:id', (req, res) => {
+    getTruck(req, res);
 })
 
 router.post('/', (req, res) => {

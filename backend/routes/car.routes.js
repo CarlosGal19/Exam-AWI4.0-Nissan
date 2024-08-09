@@ -1,11 +1,15 @@
 import express from "express";
 
-import { getCars, postCar, updateCar, deleteCar } from '../controllers/carController.js';
+import { getCars, postCar, updateCar, deleteCar, getCar } from '../controllers/carController.js';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
     getCars(req, res);
+})
+
+router.get('/:id', (req, res) => {
+    getCar(req, res);
 })
 
 router.post('/', (req, res) => {

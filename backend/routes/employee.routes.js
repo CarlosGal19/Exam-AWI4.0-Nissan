@@ -1,12 +1,17 @@
 import express from "express";
 
-import { getEmployees, postEmployee, updateEmployee, deleteEmployee } from "../controllers/employeeController.js";
+import { getEmployees, postEmployee, updateEmployee, deleteEmployee, getEmployee } from "../controllers/employeeController.js";
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
     getEmployees(req, res);
 })
+
+router.get('/:id', (req, res) => {
+    getEmployee(req, res);
+})
+
 
 router.post('/', (req, res) => {
     postEmployee(req, res);

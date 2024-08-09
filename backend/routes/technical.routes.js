@@ -1,11 +1,15 @@
 import express from "express";
 
-import { getTechnicals, postTechnical, updateTechnical, deleteTechnical } from '../controllers/technicalController.js';
+import { getTechnicals, postTechnical, updateTechnical, deleteTechnical, getTechnical } from '../controllers/technicalController.js';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
     getTechnicals(req, res);
+})
+
+router.get('/:id', (req, res) => {
+    getTechnical(req, res);
 })
 
 router.post('/', (req, res) => {

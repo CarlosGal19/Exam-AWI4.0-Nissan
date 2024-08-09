@@ -1,12 +1,17 @@
 import express from "express";
 
-import { getCoachs, postCoach, updateCoach, deleteCoach } from '../controllers/coachController.js';
+import { getCoachs, postCoach, updateCoach, deleteCoach, getCoach } from '../controllers/coachController.js';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
     getCoachs(req, res);
 })
+
+router.get('/:id', (req, res) => {
+    getCoach(req, res);
+})
+
 
 router.post('/', (req, res) => {
     postCoach(req, res);
