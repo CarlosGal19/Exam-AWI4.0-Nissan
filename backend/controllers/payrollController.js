@@ -9,6 +9,20 @@ const getPayrolls = async (req, res) => {
     }
 }
 
+const getPayroll = async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!id) return res.status(400).send({ message: 'Id is required' });
+
+        const payroll = await Payroll.findById(id);
+        if (!payroll) return res.status(404).send({ message: 'Payroll not found' });
+
+        return res.status(200).send({ payroll });
+    } catch (error) {
+        return res.status(500).send({ message: error.message });
+    }
+}
+
 const postPayroll = async (req, res) => {
     try {
         const { name, salary, bonus } = req.body;
@@ -63,5 +77,6 @@ export {
     getPayrolls,
     postPayroll,
     updatePayroll,
-    deletePayroll
+    deletePayroll,
+    getPayroll
 }

@@ -9,6 +9,20 @@ const getEmployees = async (req, res) => {
     }
 }
 
+const getEmployee = async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!id) return res.status(400).send({ message: 'Id is required' });
+
+        const employee = await Employee.findById(id);
+        if (!employee) return res.status(404).send({ message: 'Employee not found' });
+
+        return res.status(200).send({ employee });
+    } catch (error) {
+        return res.status(500).send({ message: error.message });
+    }
+}
+
 const postEmployee = async (req, res) => {
     try {
         const { name, last_name, email, salary } = req.body;
@@ -65,5 +79,6 @@ export {
     getEmployees,
     postEmployee,
     updateEmployee,
-    deleteEmployee
+    deleteEmployee,
+    getEmployee
 }

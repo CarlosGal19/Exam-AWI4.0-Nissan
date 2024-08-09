@@ -9,6 +9,20 @@ const getCoachs = async (req, res) => {
     }
 }
 
+const getCoach = async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!id) return res.status(400).send({ message: 'Id is required' });
+
+        const coach = await Coach.findById(id);
+        if (!coach) return res.status(404).send({ message: 'Coach not found' });
+
+        return res.status(200).send({ coach });
+    } catch (error) {
+        return res.status(500).send({ message: error.message });
+    }
+}
+
 const postCoach = async (req, res) => {
     try {
         const { name, last_name, area, holidays, salary } = req.body;
@@ -67,5 +81,6 @@ export {
     getCoachs,
     postCoach,
     updateCoach,
-    deleteCoach
+    deleteCoach,
+    getCoach
 }

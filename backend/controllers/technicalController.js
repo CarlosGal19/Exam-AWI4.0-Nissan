@@ -9,6 +9,18 @@ const getTechnicals = async (req, res) => {
     }
 }
 
+const getTechnical = async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!id) return res.status(400).send({ message: 'Id is required' });
+        const technical = await Technical.findById(id);
+        if (!technical) return res.status(404).send({ message: 'Technical not found' });
+        return res.status(200).send({ technical });
+    } catch (error) {
+        return res.status(500).send({ message: error.message });
+    }
+}
+
 const postTechnical = async (req, res) => {
     try {
         const { name, last_name, area, holidays, salary } = req.body;
@@ -67,5 +79,6 @@ export {
     getTechnicals,
     postTechnical,
     updateTechnical,
-    deleteTechnical
+    deleteTechnical,
+    getTechnical
 }

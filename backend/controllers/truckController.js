@@ -9,6 +9,20 @@ const getTrucks = async (req, res) => {
     }
 }
 
+const getTruck = async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!id) return res.status(400).send({ message: 'Id is required' });
+
+        const truck = await Truck.findById(id);
+        if (!truck) return res.status(404).send({ message: 'Truck not found' });
+
+        return res.status(200).send({ truck });
+    } catch (error) {
+        return res.status(500).send({ message: error.message });
+    }
+}
+
 const postTruck = async (req, res) => {
     try {
         const { name, model, color, transmition } = req.body;
@@ -65,5 +79,6 @@ export {
     getTrucks,
     postTruck,
     updateTruck,
-    deleteTruck
+    deleteTruck,
+    getTruck
 }

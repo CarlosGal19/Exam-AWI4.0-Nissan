@@ -9,6 +9,18 @@ const getLeaders = async (req, res) => {
     }
 }
 
+const getLeader = async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!id) return res.status(400).send({ message: 'Id is required' });
+        const leader = await Leader.findById(id);
+        if (!leader) return res.status(404).send({ message: 'Leader not found' });
+        return res.status(200).send({ leader });
+    } catch (error) {
+        return res.status(500).send({ message: error.message });
+    }
+}
+
 const postLeader = async (req, res) => {
     try {
         const { name, salary, area } = req.body;
@@ -63,5 +75,6 @@ export {
     getLeaders,
     postLeader,
     updateLeader,
-    deleteLeader
+    deleteLeader,
+    getLeader
 }
