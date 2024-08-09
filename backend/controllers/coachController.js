@@ -56,7 +56,7 @@ const deleteCoach = async(req, res) => {
         if(!id) return res.status(400).send({message: 'Id is required'});
         const coach = await Coach.findById(id);
         if(!coach) return res.status(400).send({message: 'Coach not found'});
-        await coach.delete();
+        await coach.deleteOne();
         return res.status(200).send({message: 'Coach deleted succesfully'});
     } catch (error) {
         return res.status(500).send({message: error.mesage})

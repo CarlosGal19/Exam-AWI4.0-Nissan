@@ -11,8 +11,8 @@ const getTrucks = async (req, res) => {
 
 const postTruck = async (req, res) => {
     try {
-        const { name, model, color, transmiton } = req.body;
-        if([name, model, color, transmiton].includes(undefined)){
+        const { name, model, color, transmition } = req.body;
+        if([name, model, color, transmition].includes(undefined)){
             return res.status(400).send({message: 'All field are required'});
         }
         const newTruck = Truck.create({
@@ -54,7 +54,7 @@ const deleteTruck = async(req, res) => {
         if(!id) return res.status(400).send({message: 'Id is required'});
         const truck = await Truck.findById(id);
         if(!truck) return res.status(400).send({message: 'Truck not found'});
-        await truck.delete();
+        await truck.deleteOne();
         return res.status(200).send({message: 'Truck deleted succesfully'});
     } catch (error) {
         return res.status(500).send({message: error.mesage})

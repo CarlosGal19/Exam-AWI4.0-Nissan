@@ -52,7 +52,7 @@ const deletePayroll = async(req, res) => {
         if(!id) return res.status(400).send({message: 'Id is required'});
         const payroll = await Payroll.findById(id);
         if(!payroll) return res.status(400).send({message: 'Payroll not found'});
-        await payroll.delete();
+        await payroll.deleteOne();
         return res.status(200).send({message: 'Payroll deleted succesfully'});
     } catch (error) {
         return res.status(500).send({message: error.mesage})

@@ -54,7 +54,7 @@ const deleteEmployee = async(req, res) => {
         if(!id) return res.status(400).send({message: 'Id is required'});
         const employee = await Employee.findById(id);
         if(!employee) return res.status(400).send({message: 'Employee nos found'});
-        await employee.delete();
+        await employee.deleteOne();
         return res.status(200).send({message: 'Employee deleted succesfully'});
     } catch (error) {
         return res.status(500).send({message: error.mesage})

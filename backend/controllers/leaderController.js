@@ -52,7 +52,7 @@ const deleteLeader = async(req, res) => {
         if(!id) return res.status(400).send({message: 'Id is required'});
         const leader = await Leader.findById(id);
         if(!leader) return res.status(400).send({message: 'Leader not found'});
-        await leader.delete();
+        await leader.deleteOne();
         return res.status(200).send({message: 'Leader deleted succesfully'});
     } catch (error) {
         return res.status(500).send({message: error.mesage})

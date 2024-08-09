@@ -12,7 +12,7 @@ const getCars = async (req, res) => {
 const postCar = async (req, res) => {
     try {
         const { name, model, color, transmition } = req.body;
-        if([name, model, color, transmiton].includes(undefined)){
+        if([name, model, color, transmition].includes(undefined)){
             return res.status(400).send({message: 'All field are required'});
         }
         const newCar = Car.create({
@@ -48,18 +48,21 @@ const updateCar = async (req, res) => {
     }
 }
 
-const deleteCar = async(req, res) => {
+const deleteCar = async (req, res) => {
     try {
         const id = req.params.id;
-        if(!id) return res.status(400).send({message: 'Id is required'});
+        if (!id) return res.status(400).send({ message: 'Id is required' });
+
         const car = await Car.findById(id);
-        if(!car) return res.status(400).send({message: 'Car nos found'});
-        await car.delete();
-        return res.status(200).send({message: 'Car deleted succesfully'});
+        if (!car) return res.status(404).send({ message: 'Car not found' });
+
+        await car.deleteOne(); // No necesitas pasar el ID aquí, ya que `car` es la instancia del documento
+        return res.status(200).send({ message: 'Car deleted successfully' });
     } catch (error) {
-        return res.status(500).send({message: error.mesage})
+        return res.status(500).send({ message: error.message }); // Accede al mensaje de error específico
     }
-}
+};
+
 
 export {
     getCars,

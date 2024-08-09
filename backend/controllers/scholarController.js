@@ -54,7 +54,7 @@ const deleteScholar = async(req, res) => {
         if(!id) return res.status(400).send({message: 'Id is required'});
         const scholar = await Scholar.findById(id);
         if(!scholar) return res.status(400).send({message: 'Scholar nos found'});
-        await scholar.delete();
+        await scholar.deleteOne();
         return res.status(200).send({message: 'Scholar deleted succesfully'});
     } catch (error) {
         return res.status(500).send({message: error.mesage})
